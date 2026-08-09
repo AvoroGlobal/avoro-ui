@@ -1,5 +1,6 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { EmptyState } from "../empty-state/EmptyState.js";
+import { Skeleton } from "../skeleton/Skeleton.js";
 
 export interface TableColumn<Row> {
   key: string;
@@ -37,9 +38,8 @@ const cellStyles: React.CSSProperties = {
   borderBottom: "1px solid var(--avoro-border-default)",
 };
 
-// NOTE: loading/error render via internal placeholders; empty uses EmptyState.
-// The loading skeleton is refactored to the real Skeleton component in its
-// commit (Table is built before Skeleton per the build order).
+// NOTE: empty renders via EmptyState and loading via Skeleton. Error stays an
+// inline placeholder (error tone is not an EmptyState concern).
 function TablePlaceholder({ message, tone }: { message: string; tone: "muted" | "error" }) {
   return (
     <div
@@ -63,15 +63,7 @@ function TableSkeletonRows({ columnCount }: { columnCount: number }) {
         <tr key={i} aria-hidden="true">
           {Array.from({ length: columnCount }).map((_, j) => (
             <td key={j} style={cellStyles}>
-              <div
-                style={{
-                  height: "12px",
-                  borderRadius: "var(--avoro-radius-sm)",
-                  backgroundColor: "var(--avoro-surface-subtle)",
-                  animation:
-                    "avoro-skeleton-pulse var(--avoro-duration-base) var(--avoro-easing-standard) infinite alternate",
-                }}
-              />
+              <Skeleton shape="text" lines={1} />
             </td>
           ))}
         </tr>

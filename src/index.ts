@@ -16,3 +16,5 @@ export { Tabs } from "./tabs/Tabs.js";
 export type { TabsProps, TabsTab } from "./tabs/Tabs.js";
 export { EmptyState } from "./empty-state/EmptyState.js";
 export type { EmptyStateProps } from "./empty-state/EmptyState.js";
+export { Skeleton } from "./skeleton/Skeleton.js";
+export type { SkeletonProps, SkeletonShape } from "./skeleton/Skeleton.js";

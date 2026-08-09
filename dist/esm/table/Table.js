@@ -1,6 +1,7 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { forwardRef } from "react";
 import { EmptyState } from "../empty-state/EmptyState.js";
+import { Skeleton } from "../skeleton/Skeleton.js";
 const headerCellStyles = {
     fontFamily: "var(--avoro-font-display)",
     fontSize: "var(--avoro-size-caption)",
@@ -20,9 +21,8 @@ const cellStyles = {
     height: "var(--avoro-component-table-row-height)",
     borderBottom: "1px solid var(--avoro-border-default)",
 };
-// NOTE: loading/error render via internal placeholders; empty uses EmptyState.
-// The loading skeleton is refactored to the real Skeleton component in its
-// commit (Table is built before Skeleton per the build order).
+// NOTE: empty renders via EmptyState and loading via Skeleton. Error stays an
+// inline placeholder (error tone is not an EmptyState concern).
 function TablePlaceholder({ message, tone }) {
     return (_jsx("div", { style: {
             padding: "var(--avoro-space-6)",
@@ -33,12 +33,7 @@ function TablePlaceholder({ message, tone }) {
         }, children: message }));
 }
 function TableSkeletonRows({ columnCount }) {
-    return (_jsx(_Fragment, { children: [0, 1, 2].map((i) => (_jsx("tr", { "aria-hidden": "true", children: Array.from({ length: columnCount }).map((_, j) => (_jsx("td", { style: cellStyles, children: _jsx("div", { style: {
-                        height: "12px",
-                        borderRadius: "var(--avoro-radius-sm)",
-                        backgroundColor: "var(--avoro-surface-subtle)",
-                        animation: "avoro-skeleton-pulse var(--avoro-duration-base) var(--avoro-easing-standard) infinite alternate",
-                    } }) }, j))) }, i))) }));
+    return (_jsx(_Fragment, { children: [0, 1, 2].map((i) => (_jsx("tr", { "aria-hidden": "true", children: Array.from({ length: columnCount }).map((_, j) => (_jsx("td", { style: cellStyles, children: _jsx(Skeleton, { shape: "text", lines: 1 }) }, j))) }, i))) }));
 }
 export const Table = forwardRef(({ columns, rows, loading = false, empty = false, error, className = "", style, ...rest }, ref) => {
     const wrapperStyles = {

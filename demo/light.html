@@ -444,6 +444,32 @@
       max-width: 40ch;
       margin-bottom: var(--avoro-space-5);
     }
+    /* Skeleton */
+    .skeleton-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 16px;
+      align-items: start;
+    }
+    .skel-text {
+      display: flex;
+      flex-direction: column;
+      gap: var(--avoro-space-2);
+      width: 100%;
+    }
+    .skel-line { height: 12px; width: 100%; }
+    .skel-line-short { width: 60%; }
+    .skel-card {
+      width: 100%;
+      height: 120px;
+      border-radius: var(--avoro-component-card-radius);
+    }
+    .skel-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--avoro-radius-pill);
+    }
   </style>
 </head>
 <body>
@@ -700,6 +726,27 @@
       <div class="empty-title">No listings found</div>
       <div class="empty-body">Try widening your filters or clearing the search.</div>
       <button class="btn btn-secondary btn-md">Clear filters</button>
+    </div>
+
+    <h1 style="margin-top: 60px;">Skeleton Component</h1>
+    <div class="variant-label">Shapes (shimmer: duration-base + easing-standard)</div>
+    <div class="skeleton-grid">
+      <div class="skeleton-cell">
+        <div class="variant-label">Text (3 lines)</div>
+        <div class="skel-text">
+          <div class="skel skel-line"></div>
+          <div class="skel skel-line"></div>
+          <div class="skel skel-line skel-line-short"></div>
+        </div>
+      </div>
+      <div class="skeleton-cell">
+        <div class="variant-label">Card</div>
+        <div class="skel skel-card"></div>
+      </div>
+      <div class="skeleton-cell">
+        <div class="variant-label">Avatar</div>
+        <div class="skel skel-avatar"></div>
+      </div>
     </div>
   </div>
 </body>
