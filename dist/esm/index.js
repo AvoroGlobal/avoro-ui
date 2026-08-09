@@ -5,3 +5,4 @@ export { Card } from "./card/Card.js";
 export { Table } from "./table/Table.js";
 export { Modal } from "./modal/Modal.js";
 export { Toast } from "./toast/Toast.js";
+export { Tabs } from "./tabs/Tabs.js";

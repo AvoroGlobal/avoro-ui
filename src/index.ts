@@ -12,3 +12,5 @@ export { Modal } from "./modal/Modal.js";
 export type { ModalProps } from "./modal/Modal.js";
 export { Toast } from "./toast/Toast.js";
 export type { ToastProps, ToastTone } from "./toast/Toast.js";
+export { Tabs } from "./tabs/Tabs.js";
+export type { TabsProps, TabsTab } from "./tabs/Tabs.js";
