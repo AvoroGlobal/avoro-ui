@@ -6,3 +6,5 @@ export { Badge } from "./badge/Badge.js";
 export type { BadgeProps, BadgeTone } from "./badge/Badge.js";
 export { Card } from "./card/Card.js";
 export type { CardProps } from "./card/Card.js";
+export { Table } from "./table/Table.js";
+export type { TableProps, TableColumn } from "./table/Table.js";

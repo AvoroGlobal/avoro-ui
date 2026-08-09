@@ -239,6 +239,67 @@
       font-size: var(--avoro-size-body-sm);
       color: var(--avoro-text-secondary);
     }
+    /* Table */
+    .table-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 16px;
+      align-items: start;
+    }
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--avoro-border-default);
+      border-radius: var(--avoro-component-card-radius);
+      background: var(--avoro-surface-card);
+    }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .table th {
+      font-family: var(--avoro-font-display);
+      font-size: var(--avoro-size-caption);
+      font-weight: var(--avoro-component-table-header-weight);
+      color: var(--avoro-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-align: left;
+      padding: var(--avoro-space-2) var(--avoro-component-table-cell-padding-x);
+      border-bottom: 1px solid var(--avoro-border-default);
+    }
+    .table td {
+      font-family: var(--avoro-font-sans);
+      font-size: var(--avoro-size-body-sm);
+      color: var(--avoro-text-primary);
+      padding: 0 var(--avoro-component-table-cell-padding-x);
+      height: var(--avoro-component-table-row-height);
+      border-bottom: 1px solid var(--avoro-border-default);
+    }
+    .table .num { text-align: right; }
+    .table tbody tr { transition: background-color 0.15s ease; }
+    .table tbody tr:hover, .table tbody tr.row-hover {
+      background: var(--avoro-interactive-secondary-hover-bg);
+    }
+    .skel {
+      height: 12px;
+      border-radius: var(--avoro-radius-sm);
+      background: var(--avoro-surface-subtle);
+      animation: avoro-skeleton-pulse 0.8s ease-in-out infinite alternate;
+    }
+    @keyframes avoro-skeleton-pulse {
+      from { opacity: 1; }
+      to { opacity: 0.45; }
+    }
+    .table-placeholder {
+      padding: var(--avoro-space-6);
+      text-align: center;
+      font-family: var(--avoro-font-sans);
+      font-size: var(--avoro-size-body-sm);
+      color: var(--avoro-text-muted);
+    }
+    .table-placeholder-error { color: var(--avoro-status-error-fg); }
   </style>
 </head>
 <body>
@@ -387,6 +448,61 @@
         <div class="card card-interactive card-focus" tabindex="0" role="button">
           <div class="card-title">Open listing</div>
           <div class="card-body">Focus shows the semantic focus ring.</div>
+        </div>
+      </div>
+    </div>
+
+    <h1 style="margin-top: 60px;">Table Component</h1>
+    <div class="variant-label">States</div>
+    <div class="table-grid">
+      <div class="table-cell">
+        <div class="variant-label">Default (row 2 = hover)</div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr><th>Agent</th><th class="num">Closings</th><th class="num">GCI</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Priya Nair</td><td class="num">12</td><td class="num">$148k</td></tr>
+              <tr class="row-hover"><td>Marcus Webb</td><td class="num">9</td><td class="num">$102k</td></tr>
+              <tr><td>Elena Ruiz</td><td class="num">7</td><td class="num">$88k</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="table-cell">
+        <div class="variant-label">Loading (skeleton)</div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr><th>Agent</th><th class="num">Closings</th><th class="num">GCI</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><div class="skel"></div></td><td><div class="skel"></div></td><td><div class="skel"></div></td></tr>
+              <tr><td><div class="skel"></div></td><td><div class="skel"></div></td><td><div class="skel"></div></td></tr>
+              <tr><td><div class="skel"></div></td><td><div class="skel"></div></td><td><div class="skel"></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="table-cell">
+        <div class="variant-label">Empty</div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr><th>Agent</th><th class="num">Closings</th><th class="num">GCI</th></tr>
+            </thead>
+          </table>
+          <div class="table-placeholder">No data yet</div>
+        </div>
+        <div class="variant-label" style="margin-top: 24px;">Error</div>
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr><th>Agent</th><th class="num">Closings</th><th class="num">GCI</th></tr>
+            </thead>
+          </table>
+          <div class="table-placeholder table-placeholder-error">Couldn&rsquo;t load rankings</div>
         </div>
       </div>
     </div>
