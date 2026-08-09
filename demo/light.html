@@ -346,6 +346,40 @@
       justify-content: flex-end;
       gap: var(--avoro-space-3);
     }
+    /* Toast */
+    .toast-stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--avoro-space-3);
+      margin-top: 16px;
+      max-width: 420px;
+    }
+    .toast-demo {
+      display: flex;
+      align-items: center;
+      gap: var(--avoro-space-3);
+      padding: var(--avoro-space-3) var(--avoro-space-4);
+      background: var(--avoro-surface-card);
+      border: 1px solid var(--avoro-border-default);
+      border-left: 4px solid;
+      border-radius: var(--avoro-radius-md);
+      box-shadow: var(--avoro-shadow-md);
+      font-family: var(--avoro-font-sans);
+      font-size: var(--avoro-size-body-sm);
+      color: var(--avoro-text-primary);
+    }
+    .toast-success { border-left-color: var(--avoro-status-success-fg); }
+    .toast-warning { border-left-color: var(--avoro-status-warning-fg); }
+    .toast-error { border-left-color: var(--avoro-status-error-fg); }
+    .toast-dot {
+      flex-shrink: 0;
+      width: 8px;
+      height: 8px;
+      border-radius: var(--avoro-radius-pill);
+    }
+    .toast-dot-success { background: var(--avoro-status-success-fg); }
+    .toast-dot-warning { background: var(--avoro-status-warning-fg); }
+    .toast-dot-error { background: var(--avoro-status-error-fg); }
   </style>
 </head>
 <body>
@@ -564,6 +598,23 @@
           <button class="btn btn-secondary btn-md">Cancel</button>
           <button class="btn btn-primary btn-md">Archive</button>
         </div>
+      </div>
+    </div>
+
+    <h1 style="margin-top: 60px;">Toast Component</h1>
+    <div class="variant-label">Tones (auto-dismiss after 4s)</div>
+    <div class="toast-stack">
+      <div class="toast-demo toast-success">
+        <span class="toast-dot toast-dot-success"></span>
+        <span>Listing published to the MLS.</span>
+      </div>
+      <div class="toast-demo toast-warning">
+        <span class="toast-dot toast-dot-warning"></span>
+        <span>3 documents are missing signatures.</span>
+      </div>
+      <div class="toast-demo toast-error">
+        <span class="toast-dot toast-dot-error"></span>
+        <span>Couldn&rsquo;t sync the calendar feed.</span>
       </div>
     </div>
   </div>

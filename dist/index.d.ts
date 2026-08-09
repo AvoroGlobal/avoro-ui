@@ -10,3 +10,5 @@ export { Table } from "./table/Table.js";
 export type { TableProps, TableColumn } from "./table/Table.js";
 export { Modal } from "./modal/Modal.js";
 export type { ModalProps } from "./modal/Modal.js";
+export { Toast } from "./toast/Toast.js";
+export type { ToastProps, ToastTone } from "./toast/Toast.js";
