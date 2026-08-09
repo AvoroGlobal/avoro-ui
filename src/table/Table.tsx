@@ -1,4 +1,5 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
+import { EmptyState } from "../empty-state/EmptyState.js";
 
 export interface TableColumn<Row> {
   key: string;
@@ -36,9 +37,9 @@ const cellStyles: React.CSSProperties = {
   borderBottom: "1px solid var(--avoro-border-default)",
 };
 
-// NOTE: loading/empty/error render via internal placeholders for now.
-// They are refactored to the real Skeleton/EmptyState components in those
-// components' commits (Table is built before them per the build order).
+// NOTE: loading/error render via internal placeholders; empty uses EmptyState.
+// The loading skeleton is refactored to the real Skeleton component in its
+// commit (Table is built before Skeleton per the build order).
 function TablePlaceholder({ message, tone }: { message: string; tone: "muted" | "error" }) {
   return (
     <div
@@ -145,7 +146,12 @@ export const Table = forwardRef(
           )}
         </table>
         {error != null && <TablePlaceholder message={error} tone="error" />}
-        {error == null && empty && !loading && <TablePlaceholder message="No data yet" tone="muted" />}
+        {error == null && empty && !loading && (
+          <EmptyState
+            icon="search"
+            title="No data yet"
+          />
+        )}
       </div>
     );
   }

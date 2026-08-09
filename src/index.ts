@@ -14,3 +14,5 @@ export { Toast } from "./toast/Toast.js";
 export type { ToastProps, ToastTone } from "./toast/Toast.js";
 export { Tabs } from "./tabs/Tabs.js";
 export type { TabsProps, TabsTab } from "./tabs/Tabs.js";
+export { EmptyState } from "./empty-state/EmptyState.js";
+export type { EmptyStateProps } from "./empty-state/EmptyState.js";

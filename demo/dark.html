@@ -413,6 +413,37 @@
       color: var(--avoro-interactive-disabled-fg);
       cursor: not-allowed;
     }
+    /* EmptyState */
+    .empty-demo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--avoro-space-8) var(--avoro-space-6);
+      margin-top: 16px;
+      border: 1px dashed var(--avoro-border-strong);
+      border-radius: var(--avoro-radius-lg);
+      font-family: var(--avoro-font-sans);
+    }
+    .empty-icon {
+      color: var(--avoro-text-muted);
+      margin-bottom: var(--avoro-space-4);
+    }
+    .empty-title {
+      font-family: var(--avoro-font-display);
+      font-size: var(--avoro-size-h4);
+      font-weight: 600;
+      line-height: var(--avoro-leading-h4);
+      color: var(--avoro-text-primary);
+      margin-bottom: var(--avoro-space-2);
+    }
+    .empty-body {
+      font-size: var(--avoro-size-body-sm);
+      color: var(--avoro-text-muted);
+      max-width: 40ch;
+      margin-bottom: var(--avoro-space-5);
+    }
   </style>
 </head>
 <body>
@@ -658,6 +689,17 @@
       <button class="tab tab-hover" role="tab" aria-selected="false" tabindex="-1">Listings</button>
       <button class="tab tab-focus" role="tab" aria-selected="false" tabindex="-1">Clients</button>
       <button class="tab tab-disabled" role="tab" aria-selected="false" aria-disabled="true" tabindex="-1" disabled>Archive</button>
+    </div>
+
+    <h1 style="margin-top: 60px;">EmptyState Component</h1>
+    <div class="variant-label">Default</div>
+    <div class="empty-demo">
+      <div class="empty-icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      </div>
+      <div class="empty-title">No listings found</div>
+      <div class="empty-body">Try widening your filters or clearing the search.</div>
+      <button class="btn btn-secondary btn-md">Clear filters</button>
     </div>
   </div>
 </body>

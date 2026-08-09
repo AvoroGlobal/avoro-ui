@@ -6,3 +6,4 @@ export { Table } from "./table/Table.js";
 export { Modal } from "./modal/Modal.js";
 export { Toast } from "./toast/Toast.js";
 export { Tabs } from "./tabs/Tabs.js";
+export { EmptyState } from "./empty-state/EmptyState.js";
