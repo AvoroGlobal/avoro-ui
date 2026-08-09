@@ -80,3 +80,47 @@ test("dark theme uses semantic tokens", () => {
   assert.ok(html.includes("var(--avoro-surface-card)"), "Should use surface-card token in dark");
   assert.ok(html.includes("var(--avoro-text-primary)"), "Should use text-primary token in dark");
 });
+
+test("visible title is optional — ariaLabel labels the dialog when no title", () => {
+  const html = renderToString(
+    createElement(Modal, { open: true, onClose: noop, ariaLabel: "Confirm archive", children: "x" })
+  );
+
+  assert.ok(html.includes('aria-label="Confirm archive"'), "aria-label should come from ariaLabel");
+  assert.ok(!html.includes("var(--avoro-size-h3)"), "No visible title heading should render without a title");
+});
+
+test("visible title still renders and labels the dialog when provided", () => {
+  const html = renderToString(
+    createElement(Modal, { open: true, onClose: noop, title: "Archive listing", children: "x" })
+  );
+
+  assert.ok(html.includes('aria-label="Archive listing"'), "aria-label should come from the title");
+  assert.ok(html.includes("Archive listing"), "Visible title should render");
+});
+
+test("title wins over ariaLabel for the accessible name when both provided", () => {
+  const html = renderToString(
+    createElement(Modal, { open: true, onClose: noop, title: "Visible", ariaLabel: "Fallback", children: "x" })
+  );
+
+  assert.ok(html.includes('aria-label="Visible"'), "title should win for aria-label");
+});
+
+test("dev warning when neither title nor ariaLabel is provided", async () => {
+  const warnings = [];
+  const originalWarn = console.warn;
+  console.warn = (msg) => warnings.push(msg);
+  try {
+    renderToString(
+      createElement(Modal, { open: true, onClose: noop, children: "x" })
+    );
+  } finally {
+    console.warn = originalWarn;
+  }
+
+  assert.ok(
+    warnings.some((w) => String(w).includes("no `title` or `ariaLabel`")),
+    "Should warn when neither title nor ariaLabel is provided",
+  );
+});

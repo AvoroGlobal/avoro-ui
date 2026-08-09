@@ -2,9 +2,16 @@ import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-run
 import { forwardRef, useEffect, useRef, } from "react";
 import { createPortal } from "react-dom";
 const FOCUSABLE = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
-export const Modal = forwardRef(({ open, onClose, title, children, className = "", style, ...rest }, ref) => {
+export const Modal = forwardRef(({ open, onClose, title, ariaLabel, children, className = "", style, ...rest }, ref) => {
     const dialogRef = useRef(null);
     const previousFocusRef = useRef(null);
+    // The dialog's accessible name comes from the visible title when present,
+    // else from ariaLabel. Warn in dev when neither is provided (a11y).
+    const label = title ?? ariaLabel;
+    if (open && label == null && typeof console !== "undefined" && console.warn) {
+        console.warn("Modal: no `title` or `ariaLabel` provided. The dialog has no accessible name — " +
+            "pass `ariaLabel` when there is no visible title.");
+    }
     // Focus trap + Escape handling + restore focus on close
     useEffect(() => {
         if (!open)
@@ -89,7 +96,7 @@ export const Modal = forwardRef(({ open, onClose, title, children, className = "
                         ref(node);
                     else if (ref)
                         ref.current = node;
-                }, role: "dialog", "aria-modal": "true", "aria-label": title, tabIndex: -1, className: className, style: dialogStyles, ...rest, children: [_jsx("div", { style: titleStyles, children: title }), children] })] }));
+                }, role: "dialog", "aria-modal": "true", "aria-label": label, tabIndex: -1, className: className, style: dialogStyles, ...rest, children: [title != null && _jsx("div", { style: titleStyles, children: title }), children] })] }));
     // Portal to document.body in the browser so a transformed/filtered ancestor
     // can't break fixed positioning. SSR has no document — render inline so
     // renderToString still produces the dialog markup.

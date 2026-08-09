@@ -10,7 +10,10 @@ import { createPortal } from "react-dom";
 export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   open: boolean;
   onClose: () => void;
-  title: string;
+  /** Visible heading. When provided it also labels the dialog. */
+  title?: string;
+  /** Accessible label used when there is no visible title. Required if title is omitted. */
+  ariaLabel?: string;
   children?: ReactNode;
 }
 
@@ -18,9 +21,19 @@ const FOCUSABLE =
   'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export const Modal = forwardRef<HTMLDivElement, ModalProps>(
-  ({ open, onClose, title, children, className = "", style, ...rest }, ref) => {
+  ({ open, onClose, title, ariaLabel, children, className = "", style, ...rest }, ref) => {
     const dialogRef = useRef<HTMLDivElement | null>(null);
     const previousFocusRef = useRef<Element | null>(null);
+
+    // The dialog's accessible name comes from the visible title when present,
+    // else from ariaLabel. Warn in dev when neither is provided (a11y).
+    const label = title ?? ariaLabel;
+    if (open && label == null && typeof console !== "undefined" && console.warn) {
+      console.warn(
+        "Modal: no `title` or `ariaLabel` provided. The dialog has no accessible name — " +
+          "pass `ariaLabel` when there is no visible title."
+      );
+    }
 
     // Focus trap + Escape handling + restore focus on close
     useEffect(() => {
@@ -119,13 +132,13 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           }}
           role="dialog"
           aria-modal="true"
-          aria-label={title}
+          aria-label={label}
           tabIndex={-1}
           className={className}
           style={dialogStyles}
           {...rest}
         >
-          <div style={titleStyles}>{title}</div>
+          {title != null && <div style={titleStyles}>{title}</div>}
           {children}
         </div>
       </>

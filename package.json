@@ -34,7 +34,7 @@
     "react-dom": ">=18"
   },
   "dependencies": {
-    "@avoroglobal/brand-tokens": "^1.5.0",
+    "@avoroglobal/brand-tokens": "^1.6.0",
     "@avoroglobal/icons": "^0.1.0"
   },
   "devDependencies": {
