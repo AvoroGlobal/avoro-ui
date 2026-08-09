@@ -18,3 +18,5 @@ export { EmptyState } from "./empty-state/EmptyState.js";
 export type { EmptyStateProps } from "./empty-state/EmptyState.js";
 export { Skeleton } from "./skeleton/Skeleton.js";
 export type { SkeletonProps, SkeletonShape } from "./skeleton/Skeleton.js";
+export { Wordmark } from "./wordmark/Wordmark.js";
+export type { WordmarkProps, WordmarkLockup, WordmarkTheme } from "./wordmark/Wordmark.js";
