@@ -209,6 +209,36 @@
     .badge-warning { background: var(--avoro-status-warning-bg); color: var(--avoro-status-warning-fg); }
     .badge-error { background: var(--avoro-status-error-bg); color: var(--avoro-status-error-fg); }
     .badge-brand { background: var(--avoro-chartreuse); color: var(--avoro-text-on-brand); }
+    /* Card */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 16px;
+    }
+    .card {
+      background: var(--avoro-surface-card);
+      border: var(--avoro-component-card-border-width) solid var(--avoro-border-default);
+      border-radius: var(--avoro-component-card-radius);
+      padding: var(--avoro-component-card-padding);
+      color: var(--avoro-text-primary);
+      font-family: var(--avoro-font-sans);
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .card-interactive { cursor: pointer; }
+    .card-interactive:hover, .card-hover { border-color: var(--avoro-border-strong); }
+    .card-interactive:focus, .card-focus { box-shadow: var(--avoro-focus-ring); }
+    .card-title {
+      font-family: var(--avoro-font-display);
+      font-size: var(--avoro-size-h4);
+      font-weight: 600;
+      margin-bottom: var(--avoro-space-2);
+    }
+    .card-body {
+      font-size: var(--avoro-size-body-sm);
+      color: var(--avoro-text-secondary);
+    }
   </style>
 </head>
 <body>
@@ -332,6 +362,32 @@
       <div class="badge-cell">
         <div class="variant-label">Brand</div>
         <span class="badge badge-brand">New</span>
+      </div>
+    </div>
+
+    <h1 style="margin-top: 60px;">Card Component</h1>
+    <div class="variant-label">States</div>
+    <div class="card-grid">
+      <div class="card-cell">
+        <div class="variant-label">Default</div>
+        <div class="card">
+          <div class="card-title">Quarterly recap</div>
+          <div class="card-body">Static container for grouped content.</div>
+        </div>
+      </div>
+      <div class="card-cell">
+        <div class="variant-label">Interactive — hover</div>
+        <div class="card card-interactive card-hover" tabindex="0" role="button">
+          <div class="card-title">Open listing</div>
+          <div class="card-body">Hover raises the border emphasis.</div>
+        </div>
+      </div>
+      <div class="card-cell">
+        <div class="variant-label">Interactive — focus</div>
+        <div class="card card-interactive card-focus" tabindex="0" role="button">
+          <div class="card-title">Open listing</div>
+          <div class="card-body">Focus shows the semantic focus ring.</div>
+        </div>
       </div>
     </div>
   </div>
