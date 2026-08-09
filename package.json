@@ -1,7 +1,7 @@
 {
   "name": "@avoroglobal/ui",
   "version": "0.2.0",
-  "description": "Avoro UI primitives \u2014 token-only, all-states, both themes",
+  "description": "Avoro UI primitives — token-only, all-states, both themes",
   "type": "module",
   "sideEffects": false,
   "files": [
@@ -34,12 +34,13 @@
     "react-dom": ">=18"
   },
   "dependencies": {
-    "@avoroglobal/brand-tokens": "^1.4.1",
+    "@avoroglobal/brand-tokens": "^1.5.0",
     "@avoroglobal/icons": "^0.1.0"
   },
   "devDependencies": {
     "@types/react": "^19.0.7",
     "@types/react-dom": "^19.0.3",
+    "jsdom": "^30.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "typescript": "^5.8.3"

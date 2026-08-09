@@ -1,6 +1,7 @@
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { EmptyState } from "../empty-state/EmptyState.js";
 import { Skeleton } from "../skeleton/Skeleton.js";
+import { Button } from "../button/Button.js";
 
 export interface TableColumn<Row> {
   key: string;
@@ -15,6 +16,8 @@ export interface TableProps<Row> extends Omit<HTMLAttributes<HTMLTableElement>, 
   loading?: boolean;
   empty?: boolean;
   error?: string;
+  /** When provided, the error state renders a "Try again" secondary Button wired to it. */
+  onRetry?: () => void;
 }
 
 const headerCellStyles: React.CSSProperties = {
@@ -74,7 +77,7 @@ function TableSkeletonRows({ columnCount }: { columnCount: number }) {
 
 export const Table = forwardRef(
   <Row extends Record<string, unknown> = Record<string, unknown>>(
-    { columns, rows, loading = false, empty = false, error, className = "", style, ...rest }: TableProps<Row>,
+    { columns, rows, loading = false, empty = false, error, onRetry, className = "", style, ...rest }: TableProps<Row>,
     ref: React.ForwardedRef<HTMLTableElement>
   ) => {
     const wrapperStyles: React.CSSProperties = {
@@ -137,7 +140,18 @@ export const Table = forwardRef(
             </tbody>
           )}
         </table>
-        {error != null && <TablePlaceholder message={error} tone="error" />}
+        {error != null && (
+          <div>
+            <TablePlaceholder message={error} tone="error" />
+            {onRetry && (
+              <div style={{ textAlign: "center", paddingBottom: "var(--avoro-space-5)" }}>
+                <Button variant="secondary" onClick={onRetry}>
+                  Try again
+                </Button>
+              </div>
+            )}
+          </div>
+        )}
         {error == null && empty && !loading && (
           <EmptyState
             icon="search"

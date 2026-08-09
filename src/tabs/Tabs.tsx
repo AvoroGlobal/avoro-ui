@@ -1,4 +1,4 @@
-import { forwardRef, type HTMLAttributes } from "react";
+import { forwardRef, useRef, type HTMLAttributes, type KeyboardEvent } from "react";
 
 export interface TabsTab {
   value: string;
@@ -44,20 +44,66 @@ function tabBaseStyles(selected: boolean, disabled: boolean): React.CSSPropertie
 
 export const Tabs = forwardRef<HTMLDivElement, TabsProps>(
   ({ tabs, value, onChange, className = "", style, ...rest }, ref) => {
+    const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+    const enabledIndexes = tabs
+      .map((tab, i) => (tab.disabled ? -1 : i))
+      .filter((i) => i >= 0);
+
+    function focusAndActivate(index: number) {
+      const tab = tabs[index];
+      if (!tab || tab.disabled) return;
+      tabRefs.current[index]?.focus();
+      // Activation follows focus
+      onChange(tab.value);
+    }
+
+    function onListKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+      const currentIndex = tabRefs.current.findIndex(
+        (el) => el === document.activeElement
+      );
+      if (currentIndex === -1) return;
+
+      const currentEnabledPos = enabledIndexes.indexOf(currentIndex);
+      let targetIndex: number | null = null;
+
+      if (e.key === "ArrowRight") {
+        const nextPos = (currentEnabledPos + 1) % enabledIndexes.length;
+        targetIndex = enabledIndexes[nextPos];
+      } else if (e.key === "ArrowLeft") {
+        const prevPos =
+          (currentEnabledPos - 1 + enabledIndexes.length) % enabledIndexes.length;
+        targetIndex = enabledIndexes[prevPos];
+      } else if (e.key === "Home") {
+        targetIndex = enabledIndexes[0];
+      } else if (e.key === "End") {
+        targetIndex = enabledIndexes[enabledIndexes.length - 1];
+      }
+
+      if (targetIndex !== null) {
+        e.preventDefault();
+        focusAndActivate(targetIndex);
+      }
+    }
+
     return (
       <div
         ref={ref}
         role="tablist"
         className={className}
         style={{ ...listStyles, ...style }}
+        onKeyDown={onListKeyDown}
         {...rest}
       >
-        {tabs.map((tab) => {
+        {tabs.map((tab, i) => {
           const selected = tab.value === value;
           const disabled = tab.disabled ?? false;
           return (
             <button
               key={tab.value}
+              ref={(el) => {
+                tabRefs.current[i] = el;
+              }}
               type="button"
               role="tab"
               aria-selected={selected}

@@ -1,5 +1,5 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { forwardRef } from "react";
+import { forwardRef, useRef } from "react";
 const listStyles = {
     display: "flex",
     gap: "var(--avoro-space-1)",
@@ -28,10 +28,49 @@ function tabBaseStyles(selected, disabled) {
     };
 }
 export const Tabs = forwardRef(({ tabs, value, onChange, className = "", style, ...rest }, ref) => {
-    return (_jsx("div", { ref: ref, role: "tablist", className: className, style: { ...listStyles, ...style }, ...rest, children: tabs.map((tab) => {
+    const tabRefs = useRef([]);
+    const enabledIndexes = tabs
+        .map((tab, i) => (tab.disabled ? -1 : i))
+        .filter((i) => i >= 0);
+    function focusAndActivate(index) {
+        const tab = tabs[index];
+        if (!tab || tab.disabled)
+            return;
+        tabRefs.current[index]?.focus();
+        // Activation follows focus
+        onChange(tab.value);
+    }
+    function onListKeyDown(e) {
+        const currentIndex = tabRefs.current.findIndex((el) => el === document.activeElement);
+        if (currentIndex === -1)
+            return;
+        const currentEnabledPos = enabledIndexes.indexOf(currentIndex);
+        let targetIndex = null;
+        if (e.key === "ArrowRight") {
+            const nextPos = (currentEnabledPos + 1) % enabledIndexes.length;
+            targetIndex = enabledIndexes[nextPos];
+        }
+        else if (e.key === "ArrowLeft") {
+            const prevPos = (currentEnabledPos - 1 + enabledIndexes.length) % enabledIndexes.length;
+            targetIndex = enabledIndexes[prevPos];
+        }
+        else if (e.key === "Home") {
+            targetIndex = enabledIndexes[0];
+        }
+        else if (e.key === "End") {
+            targetIndex = enabledIndexes[enabledIndexes.length - 1];
+        }
+        if (targetIndex !== null) {
+            e.preventDefault();
+            focusAndActivate(targetIndex);
+        }
+    }
+    return (_jsx("div", { ref: ref, role: "tablist", className: className, style: { ...listStyles, ...style }, onKeyDown: onListKeyDown, ...rest, children: tabs.map((tab, i) => {
             const selected = tab.value === value;
             const disabled = tab.disabled ?? false;
-            return (_jsx("button", { type: "button", role: "tab", "aria-selected": selected, "aria-disabled": disabled || undefined, tabIndex: selected ? 0 : -1, disabled: disabled, style: tabBaseStyles(selected, disabled), onClick: () => {
+            return (_jsx("button", { ref: (el) => {
+                    tabRefs.current[i] = el;
+                }, type: "button", role: "tab", "aria-selected": selected, "aria-disabled": disabled || undefined, tabIndex: selected ? 0 : -1, disabled: disabled, style: tabBaseStyles(selected, disabled), onClick: () => {
                     if (!disabled)
                         onChange(tab.value);
                 }, onFocus: (e) => {

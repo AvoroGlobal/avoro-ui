@@ -14,7 +14,9 @@ const inputBaseStyles = {
     height: "var(--avoro-component-input-height)",
     paddingLeft: "var(--avoro-component-input-padding-x)",
     paddingRight: "var(--avoro-component-input-padding-x)",
-    fontFamily: "var(--avoro-font-sans)",
+    // Form controls do not inherit fonts by default — inherit explicitly so the
+    // input follows the inherited body stack rather than a UA default.
+    fontFamily: "inherit",
     fontSize: "var(--avoro-size-body)",
     color: "var(--avoro-text-primary)",
     backgroundColor: "var(--avoro-surface-card)",

@@ -5,6 +5,7 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from "react";
+import { createPortal } from "react-dom";
 
 export interface ModalProps extends Omit<HTMLAttributes<HTMLDivElement>, "title"> {
   open: boolean;
@@ -107,7 +108,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       marginBottom: "var(--avoro-space-4)",
     };
 
-    return (
+    const dialog = (
       <>
         <div style={backdropStyles} onClick={onClose} aria-hidden="true" />
         <div
@@ -129,6 +130,12 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
         </div>
       </>
     );
+
+    // Portal to document.body in the browser so a transformed/filtered ancestor
+    // can't break fixed positioning. SSR has no document — render inline so
+    // renderToString still produces the dialog markup.
+    if (typeof document === "undefined") return dialog;
+    return createPortal(dialog, document.body);
   }
 );
 

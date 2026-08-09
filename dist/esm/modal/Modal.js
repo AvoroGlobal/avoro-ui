@@ -1,5 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { forwardRef, useEffect, useRef, } from "react";
+import { createPortal } from "react-dom";
 const FOCUSABLE = 'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 export const Modal = forwardRef(({ open, onClose, title, children, className = "", style, ...rest }, ref) => {
     const dialogRef = useRef(null);
@@ -82,12 +83,18 @@ export const Modal = forwardRef(({ open, onClose, title, children, className = "
         lineHeight: "var(--avoro-leading-h3)",
         marginBottom: "var(--avoro-space-4)",
     };
-    return (_jsxs(_Fragment, { children: [_jsx("div", { style: backdropStyles, onClick: onClose, "aria-hidden": "true" }), _jsxs("div", { ref: (node) => {
+    const dialog = (_jsxs(_Fragment, { children: [_jsx("div", { style: backdropStyles, onClick: onClose, "aria-hidden": "true" }), _jsxs("div", { ref: (node) => {
                     dialogRef.current = node;
                     if (typeof ref === "function")
                         ref(node);
                     else if (ref)
                         ref.current = node;
                 }, role: "dialog", "aria-modal": "true", "aria-label": title, tabIndex: -1, className: className, style: dialogStyles, ...rest, children: [_jsx("div", { style: titleStyles, children: title }), children] })] }));
+    // Portal to document.body in the browser so a transformed/filtered ancestor
+    // can't break fixed positioning. SSR has no document — render inline so
+    // renderToString still produces the dialog markup.
+    if (typeof document === "undefined")
+        return dialog;
+    return createPortal(dialog, document.body);
 });
 Modal.displayName = "Modal";
