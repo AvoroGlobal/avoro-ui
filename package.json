@@ -1,6 +1,6 @@
 {
   "name": "@avoroglobal/ui",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Avoro UI primitives — token-only, all-states, both themes",
   "type": "module",
   "sideEffects": false,
