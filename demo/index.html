@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Button Demo — @avoroglobal/ui</title>
+  <link rel="stylesheet" href="/node_modules/@avoroglobal/brand-tokens/dist/css-variables.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--avoro-font-sans);
+      background: var(--avoro-bg);
+      color: var(--avoro-fg);
+      padding: 40px;
+    }
+    .demo-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-family: var(--avoro-font-display);
+      font-size: var(--avoro-size-h2);
+      margin-bottom: 40px;
+    }
+    .theme-section {
+      margin-bottom: 60px;
+      padding: 40px;
+      border-radius: var(--avoro-radius-lg);
+    }
+    .theme-section[data-avoro-surface="light"] {
+      background: var(--avoro-paper);
+    }
+    .theme-section[data-avoro-surface="dark"] {
+      background: var(--avoro-ink);
+    }
+    .theme-label {
+      font-family: var(--avoro-font-mono);
+      font-size: var(--avoro-size-caption);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 24px;
+      opacity: 0.7;
+    }
+    .variant-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .variant-column {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .variant-label {
+      font-family: var(--avoro-font-mono);
+      font-size: var(--avoro-size-micro);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0.6;
+      margin-bottom: 8px;
+    }
+    .size-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .size-label {
+      width: 24px;
+      font-family: var(--avoro-font-mono);
+      font-size: var(--avoro-size-micro);
+      opacity: 0.5;
+    }
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 500;
+      font-family: var(--avoro-font-display);
+      border-radius: var(--avoro-radius-md);
+      cursor: pointer;
+      transition: background-color 0.15s ease, color 0.15s ease;
+      outline: none;
+      border: none;
+    }
+    button:focus-visible {
+      box-shadow: var(--avoro-focus-ring);
+    }
+    /* Primary */
+    .btn-primary {
+      background: var(--avoro-interactive-primary-bg);
+      color: var(--avoro-interactive-primary-fg);
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: var(--avoro-interactive-primary-hover);
+    }
+    .btn-primary:active:not(:disabled) {
+      background: var(--avoro-interactive-primary-active);
+      color: var(--avoro-interactive-primary-active-fg);
+    }
+    /* Secondary */
+    .btn-secondary {
+      background: transparent;
+      color: var(--avoro-interactive-secondary-fg);
+      border: 1px solid var(--avoro-border-default);
+    }
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--avoro-interactive-secondary-hover-bg);
+    }
+    /* Ghost */
+    .btn-ghost {
+      background: transparent;
+      color: var(--avoro-text-primary);
+    }
+    .btn-ghost:hover:not(:disabled) {
+      background: var(--avoro-interactive-secondary-hover-bg);
+    }
+    /* Inverse */
+    .btn-inverse {
+      background: var(--avoro-surface-inverse);
+      color: var(--avoro-text-inverse);
+    }
+    /* Disabled */
+    button:disabled {
+      background: var(--avoro-interactive-disabled-bg) !important;
+      color: var(--avoro-interactive-disabled-fg) !important;
+      border: none !important;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    /* Sizes */
+    .btn-sm { height: 32px; padding: 0 12px; font-size: 14px; }
+    .btn-md { height: 40px; padding: 0 16px; font-size: 15px; }
+    .btn-lg { height: 48px; padding: 0 20px; font-size: 16px; }
+    /* Loading spinner */
+    .spinner {
+      width: 16px;
+      height: 16px;
+      animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    /* Icon placeholder */
+    .icon-placeholder {
+      width: 16px;
+      height: 16px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-container">
+    <h1>Button Component</h1>
+    
+    <!-- Light Theme -->
+    <div class="theme-section" data-avoro-surface="light">
+      <div class="theme-label">Light Theme</div>
+      <div class="variant-grid">
+        <!-- Primary -->
+        <div class="variant-column">
+          <div class="variant-label">Primary</div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-primary btn-sm">Button</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-primary btn-md">Button</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-primary btn-lg">Button</button></div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-primary btn-sm" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-primary btn-md" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-primary btn-lg" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-primary btn-sm"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-primary btn-md"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-primary btn-lg"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+        </div>
+        
+        <!-- Secondary -->
+        <div class="variant-column">
+          <div class="variant-label">Secondary</div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-secondary btn-sm">Button</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-secondary btn-md">Button</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-secondary btn-lg">Button</button></div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-secondary btn-sm" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-secondary btn-md" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-secondary btn-lg" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-secondary btn-sm"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-secondary btn-md"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-secondary btn-lg"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+        </div>
+        
+        <!-- Ghost -->
+        <div class="variant-column">
+          <div class="variant-label">Ghost</div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-ghost btn-sm">Button</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-ghost btn-md">Button</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-ghost btn-lg">Button</button></div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-ghost btn-sm" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-ghost btn-md" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-ghost btn-lg" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-ghost btn-sm"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-ghost btn-md"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-ghost btn-lg"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+        </div>
+        
+        <!-- Inverse -->
+        <div class="variant-column">
+          <div class="variant-label">Inverse</div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-inverse btn-sm">Button</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-inverse btn-md">Button</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-inverse btn-lg">Button</button></div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-inverse btn-sm" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-inverse btn-md" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-inverse btn-lg" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-inverse btn-sm"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-inverse btn-md"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-inverse btn-lg"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Dark Theme -->
+    <div class="theme-section" data-avoro-surface="dark">
+      <div class="theme-label">Dark Theme</div>
+      <div class="variant-grid">
+        <!-- Primary -->
+        <div class="variant-column">
+          <div class="variant-label">Primary</div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-primary btn-sm">Button</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-primary btn-md">Button</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-primary btn-lg">Button</button></div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-primary btn-sm" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-primary btn-md" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-primary btn-lg" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-primary btn-sm"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-primary btn-md"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-primary btn-lg"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+        </div>
+        
+        <!-- Secondary -->
+        <div class="variant-column">
+          <div class="variant-label">Secondary</div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-secondary btn-sm">Button</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-secondary btn-md">Button</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-secondary btn-lg">Button</button></div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-secondary btn-sm" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-secondary btn-md" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-secondary btn-lg" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-secondary btn-sm"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-secondary btn-md"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-secondary btn-lg"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+        </div>
+        
+        <!-- Ghost -->
+        <div class="variant-column">
+          <div class="variant-label">Ghost</div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-ghost btn-sm">Button</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-ghost btn-md">Button</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-ghost btn-lg">Button</button></div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-ghost btn-sm" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-ghost btn-md" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-ghost btn-lg" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-ghost btn-sm"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-ghost btn-md"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-ghost btn-lg"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+        </div>
+        
+        <!-- Inverse -->
+        <div class="variant-column">
+          <div class="variant-label">Inverse</div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-inverse btn-sm">Button</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-inverse btn-md">Button</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-inverse btn-lg">Button</button></div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-inverse btn-sm" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-inverse btn-md" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-inverse btn-lg" disabled>Disabled</button></div>
+          <div class="size-row"><span class="size-label">sm</span><button class="btn-inverse btn-sm"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+          <div class="size-row"><span class="size-label">md</span><button class="btn-inverse btn-md"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+          <div class="size-row"><span class="size-label">lg</span><button class="btn-inverse btn-lg"><svg class="spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>Loading</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
