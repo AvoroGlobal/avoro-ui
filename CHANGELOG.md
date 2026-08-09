@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.1 — Wordmark theme="auto" defers to the ambient theme (var(--avoro-fg) /
+var(--avoro-accent)) so the wordmark follows its surrounding surface.
+
 ## 1.1.0 — Wordmark component (horizontal/stacked/mark lockups, light/dark/
 onBrand themes, size warning) + LOGO-RULES.md. AGENTS.md shim.
 

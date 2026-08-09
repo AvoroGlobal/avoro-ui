@@ -91,3 +91,11 @@ test("no hardcoded hex in rendered styles", () => {
     }
   }
 });
+
+test("auto theme defers to ambient theme vars (fg/accent)", () => {
+  const html = renderToString(createElement(Wordmark, { theme: "auto" }));
+  assert.ok(html.includes("color:var(--avoro-fg)"), "auto text should use theme-aware --avoro-fg");
+  assert.ok(html.includes("color:var(--avoro-accent)"), "auto slash should use theme-aware --avoro-accent");
+  assert.ok(!html.includes("color:var(--avoro-ink)"), "auto should not hardcode ink");
+  assert.ok(!html.includes("color:var(--avoro-paper)"), "auto should not hardcode paper");
+});

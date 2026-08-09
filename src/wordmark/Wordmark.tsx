@@ -1,7 +1,7 @@
 import { forwardRef, type HTMLAttributes } from "react";
 
 export type WordmarkLockup = "horizontal" | "stacked" | "mark";
-export type WordmarkTheme = "light" | "dark" | "onBrand";
+export type WordmarkTheme = "light" | "dark" | "onBrand" | "auto";
 
 export interface WordmarkProps extends HTMLAttributes<HTMLSpanElement> {
   lockup?: WordmarkLockup;
@@ -28,6 +28,10 @@ const themeColors: Record<WordmarkTheme, { text: string; slash: string }> = {
   light: { text: "var(--avoro-ink)", slash: "var(--avoro-ink)" },
   dark: { text: "var(--avoro-paper)", slash: "var(--avoro-chartreuse)" },
   onBrand: { text: "var(--avoro-ink)", slash: "var(--avoro-ink)" },
+  // auto defers to the ambient theme: --avoro-fg / --avoro-accent flip with the
+  // surrounding surface (accent is chartreuse-deep on light, chartreuse on dark),
+  // so the wordmark follows its context rather than a fixed theme.
+  auto: { text: "var(--avoro-fg)", slash: "var(--avoro-accent)" },
 };
 
 // Kit minimum for the primary lockup (LOGO-RULES.md). Below this we warn.

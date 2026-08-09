@@ -18,6 +18,10 @@ const themeColors = {
     light: { text: "var(--avoro-ink)", slash: "var(--avoro-ink)" },
     dark: { text: "var(--avoro-paper)", slash: "var(--avoro-chartreuse)" },
     onBrand: { text: "var(--avoro-ink)", slash: "var(--avoro-ink)" },
+    // auto defers to the ambient theme: --avoro-fg / --avoro-accent flip with the
+    // surrounding surface (accent is chartreuse-deep on light, chartreuse on dark),
+    // so the wordmark follows its context rather than a fixed theme.
+    auto: { text: "var(--avoro-fg)", slash: "var(--avoro-accent)" },
 };
 // Kit minimum for the primary lockup (LOGO-RULES.md). Below this we warn.
 const KIT_MIN_PRIMARY_PX = 16;
