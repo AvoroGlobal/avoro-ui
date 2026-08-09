@@ -185,6 +185,30 @@
       color: var(--avoro-text-muted);
       margin-top: var(--avoro-space-2);
     }
+    /* Badge */
+    .badge-row {
+      display: flex;
+      gap: 32px;
+      margin-top: 16px;
+      align-items: flex-start;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: var(--avoro-component-badge-height);
+      padding: 0 var(--avoro-component-badge-padding-x);
+      font-family: var(--avoro-font-display);
+      font-size: var(--avoro-size-caption);
+      font-weight: 500;
+      line-height: 1;
+      border-radius: var(--avoro-component-badge-radius);
+    }
+    .badge-neutral { background: var(--avoro-surface-subtle); color: var(--avoro-text-secondary); }
+    .badge-success { background: var(--avoro-status-success-bg); color: var(--avoro-status-success-fg); }
+    .badge-warning { background: var(--avoro-status-warning-bg); color: var(--avoro-status-warning-fg); }
+    .badge-error { background: var(--avoro-status-error-bg); color: var(--avoro-status-error-fg); }
+    .badge-brand { background: var(--avoro-chartreuse); color: var(--avoro-text-on-brand); }
   </style>
 </head>
 <body>
@@ -283,6 +307,31 @@
         <label class="input-label" for="demo-input-hint">Email</label>
         <input class="input" id="demo-input-hint" type="email" placeholder="agent@brokerage.com" />
         <p class="input-hint-msg">We never share your email.</p>
+      </div>
+    </div>
+
+    <h1 style="margin-top: 60px;">Badge Component</h1>
+    <div class="variant-label">Tones</div>
+    <div class="badge-row">
+      <div class="badge-cell">
+        <div class="variant-label">Neutral</div>
+        <span class="badge badge-neutral">Draft</span>
+      </div>
+      <div class="badge-cell">
+        <div class="variant-label">Success</div>
+        <span class="badge badge-success">Closed</span>
+      </div>
+      <div class="badge-cell">
+        <div class="variant-label">Warning</div>
+        <span class="badge badge-warning">Pending</span>
+      </div>
+      <div class="badge-cell">
+        <div class="variant-label">Error</div>
+        <span class="badge badge-error">Failed</span>
+      </div>
+      <div class="badge-cell">
+        <div class="variant-label">Brand</div>
+        <span class="badge badge-brand">New</span>
       </div>
     </div>
   </div>
