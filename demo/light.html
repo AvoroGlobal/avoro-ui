@@ -300,6 +300,52 @@
       color: var(--avoro-text-muted);
     }
     .table-placeholder-error { color: var(--avoro-status-error-fg); }
+    /* Modal */
+    .modal-demo-stage {
+      position: relative;
+      margin-top: 16px;
+      height: 320px;
+      border: 1px dashed var(--avoro-border-strong);
+      border-radius: var(--avoro-radius-lg);
+      overflow: hidden;
+    }
+    .modal-backdrop-demo {
+      position: absolute;
+      inset: 0;
+      background: var(--avoro-ink);
+      opacity: 0.5;
+    }
+    .modal-dialog-demo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% - var(--avoro-space-6) * 2);
+      max-width: var(--avoro-component-modal-max-width);
+      background: var(--avoro-surface-card);
+      border-radius: var(--avoro-component-modal-radius);
+      padding: var(--avoro-component-modal-padding);
+      box-shadow: var(--avoro-shadow-lg);
+      color: var(--avoro-text-primary);
+      font-family: var(--avoro-font-sans);
+    }
+    .modal-title {
+      font-family: var(--avoro-font-display);
+      font-size: var(--avoro-size-h3);
+      font-weight: 600;
+      line-height: var(--avoro-leading-h3);
+      margin-bottom: var(--avoro-space-4);
+    }
+    .modal-body {
+      font-size: var(--avoro-size-body-sm);
+      color: var(--avoro-text-secondary);
+      margin-bottom: var(--avoro-space-5);
+    }
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: var(--avoro-space-3);
+    }
   </style>
 </head>
 <body>
@@ -503,6 +549,20 @@
             </thead>
           </table>
           <div class="table-placeholder table-placeholder-error">Couldn&rsquo;t load rankings</div>
+        </div>
+      </div>
+    </div>
+
+    <h1 style="margin-top: 60px;">Modal Component</h1>
+    <div class="variant-label">Open state (inline render — the real component portals over a backdrop)</div>
+    <div class="modal-demo-stage">
+      <div class="modal-backdrop-demo"></div>
+      <div class="modal-dialog-demo" role="dialog" aria-modal="true" aria-label="Archive listing">
+        <div class="modal-title">Archive listing</div>
+        <p class="modal-body">123 Maple St will be removed from active listings. You can restore it within 30 days.</p>
+        <div class="modal-actions">
+          <button class="btn btn-secondary btn-md">Cancel</button>
+          <button class="btn btn-primary btn-md">Archive</button>
         </div>
       </div>
     </div>

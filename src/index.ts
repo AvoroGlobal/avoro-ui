@@ -8,3 +8,5 @@ export { Card } from "./card/Card.js";
 export type { CardProps } from "./card/Card.js";
 export { Table } from "./table/Table.js";
 export type { TableProps, TableColumn } from "./table/Table.js";
+export { Modal } from "./modal/Modal.js";
+export type { ModalProps } from "./modal/Modal.js";
