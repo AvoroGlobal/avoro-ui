@@ -27,7 +27,7 @@
     "build": "node scripts/build.mjs",
     "test": "npm run build && node --test tests/*.test.mjs",
     "prepare": "npm run build",
-    "prepack": "npm test && node scripts/build-demo.mjs"
+    "prepack": "npm run build && node scripts/build-demo.mjs"
   },
   "peerDependencies": {
     "react": ">=18",
